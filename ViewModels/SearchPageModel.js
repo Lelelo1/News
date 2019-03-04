@@ -131,6 +131,7 @@ class SearchPageModel {
         }
         this.level = level;
     }
+    selectedArticle;
 }
 
 /*
@@ -144,7 +145,8 @@ decorate(SearchPageModel, {
     selectedCategory: observable,
     isSearching: observable,
     articles: observable,
-    level: observable
+    level: observable,
+    selectedArticle: observable
 });
 // Computed not needed
 export default inject('countryPageModel')(observer(SearchPageModel));

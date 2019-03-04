@@ -34,7 +34,6 @@ class SearchPage extends Component {
       iconName: 'new',
       searchAreaHeight: moderateScale(210)
     };
-
   }
 
   getSource(urlToImage) {
@@ -53,12 +52,22 @@ class SearchPage extends Component {
       this.setState({ outputText: SearchPageModel.country });
     }
   }
-
+  selectArticle(article) {
+    SearchPageModel.getInstance().selectedArticle = article;
+    this.props.navigation.navigate('Article');
+  }
   listItem(item) {
     const level = this.props.searchPageModel.level;
     switch (level) {
       case 0 : {
-        return <ListItem bottomDivider={true} title={<Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>} rightIcon={{ name: 'chevron-right', size: 18 }} />;
+        return (
+          <ListItem
+            bottomDivider={true}
+            title={<Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.title}</Text>}
+            rightIcon={{ name: 'chevron-right', size: 18 }} 
+            onPress={() => { this.selectArticle(item); }}
+          />
+        );
       }
       case 1 : {
         return (
@@ -67,6 +76,7 @@ class SearchPage extends Component {
             subtitle={<Text style={{ fontSize: 12 }}>{item.description}</Text>}
             subtitleProps={{ fontSize: 10, color: 'grey' }}
             rightIcon={{ name: 'chevron-right', size: 18 }}
+            onPress={() => { this.selectArticle(item); }}
           />
         );    
       }
@@ -78,6 +88,7 @@ class SearchPage extends Component {
             subtitle={<Text style={{ fontSize: 12 }}>{item.description}</Text>}
             subtitleProps={{ fontSize: 10, color: 'grey' }}
             rightIcon={{ name: 'chevron-right', size: 18 }}
+            onPress={() => { this.selectArticle(item); }}
           />
         );
       }
@@ -105,6 +116,7 @@ class SearchPage extends Component {
               }
               return this.listItem(item); 
             }}
+            
             style={{ backgroundColor: '#c7d6e0' }}
             
           />

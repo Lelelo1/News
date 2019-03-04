@@ -22,7 +22,7 @@ import { createStore, applyMiddleware } from 'redux';
 import CountryPageModel, { reducer } from './ViewModels/CountryPageModel';
 import SearchPageModel from './ViewModels/SearchPageModel';
 import LanguagePageModel from './ViewModels/LanguagePageModel';
-
+import ArticlePage from './ArticlePage';
 /*
 const tabs = createBottomTabNavigator({
   Search: { screen: SearchPage },
@@ -35,7 +35,8 @@ const Navigation = createStackNavigator(
     Search: { screen: SearchPage },
     Sources: { screen: SourcesPage },
     Country: { screen: CountryPage },
-    Language: { screen: LanguagePage }
+    Language: { screen: LanguagePage },
+    Article: { screen: ArticlePage }
   },
   {
     initialRouteKey: 'Search'
