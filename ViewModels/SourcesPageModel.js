@@ -5,16 +5,17 @@ export default class SourcesPageModel {
     static instance = null;
     static getInstance() {
         if (this.instance == null) {
-            return new SearchPageModel();
+            this.instance = new SourcesPageModel();
         }
         return this.instance;
     }
     sources;
-    get selectedSources() {
+    selectedSources() {
         if (this.sources) {
             const selectedSources = this.sources.filter(source => source.isSelected === true);
             return selectedSources > 0 ? selectedSources : null;
         }
         return null;
     }
+    
 }

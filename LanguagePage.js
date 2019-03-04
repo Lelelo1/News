@@ -13,7 +13,7 @@ class LanguagePage extends Component {
         return (
             <View style={{ borderBottomColor: 'blue', height: '100%' }}>
                 <CheckList
-                data={this.props.languagePageModel.getLanguages}
+                data={this.props.languagePageModel.getLanguages()}
                 bindingContext={LanguagePageModel.getInstance()}
                 />
                 <View style={{ position: 'absolute', left: '35%', backgroundColor: '#e5e5e5' }}>

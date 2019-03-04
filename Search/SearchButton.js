@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { TouchableOpacity, View, Text} from 'react-native';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import CountryPageModel from '../ViewModels/CountryPageModel';
 import SearchPageModel from '../ViewModels/SearchPageModel';
 import { inject, observer } from 'mobx-react';
 
@@ -41,16 +40,7 @@ class SearchButton extends Component {
             <TouchableOpacity
              style={{ backgroundColor: 'pink', width: scale(225), height: moderateScale(35) }}
              onPress={() => {
-                /*
-                const c = SearchPageModel.getInstance().selectedCategory;
-                if (!c) {
-                    console.log('c: ' + c);
-                    if (c === '') {
-                        console.log('yes');
-                    }   
-                }
-                */
-               console.log('pressed');
+               SearchPageModel.getInstance().getArticles();
              }}
              disabled={!this.props.searchPageModel.canSearch()}
             >

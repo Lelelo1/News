@@ -15,7 +15,7 @@ export default class LanguagePageModel {
     // ud - what is language is ud?
     languageFullNames = ['Arabic', 'German', 'English', 'Spanish', 'French', 'Hebrew', 'Italian', 'Dutch', 'Norwegian', 'Portuguese', 'Russian', 'Swedish', 'Chinese']; 
     languages;
-    get getLanguages() {
+    getLanguages() {
         if (this.languages) {
             return this.languages;
         }
@@ -30,9 +30,16 @@ export default class LanguagePageModel {
         const setLanguage = this.languages.find(language => language.key === key);
         setLanguage.isSelected = !setLanguage.isSelected;
     }
+    selectedLanguages() {
+        if (this.languages) {
+            const selectedLanguages = this.languages.filter(language => language.isSelected);
+            const selectedLanguageCodes = selectedLanguages.map(selectedLanguage => selectedLanguage.key);
+            return selectedLanguageCodes.length > 0 ? selectedLanguageCodes : null;
+        }
+        return null;
+    }
 }
 decorate(LanguagePageModel, {
     languages: observable,
-    getLanguages: computed
 });
 

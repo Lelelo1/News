@@ -12,7 +12,7 @@ class SearchArea extends Component {
 
     render() {
         return (
-            <View style={{ flex: 1, width: '100%', height: moderateScale(210) }}>
+            <View style={{ flex: 1, width: '100%', height: this.props.height }}>
                 <View style={{ flex: 1, marginHorizontal: '4%', marginVertical: '1%', justifyContent: 'space-evenly', flexDirection: 'column', alignItems: 'flex-start' }}>
                     <SearchRow />
                     <ButtonRow />

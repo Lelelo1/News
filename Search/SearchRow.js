@@ -16,7 +16,7 @@ class SearchRow extends Component {
                     <AutoComplete
                      style={{ width: scale(270), height: verticalScale(30), fontSize: moderateScale(16) }}
                      placeholder={'Search ' + this.props.searchPageModel.searchType}
-                     onChangeText={(text) => { console.log('text: ' + text); SearchPageModel.getInstance().query = text; }}
+                     onChangeText={(text) => { SearchPageModel.getInstance().query = text; }}
                     />
                     <Text style={{ alignSelf: 'flex-end', fontSize: moderateScale(7) }}>powered by News API</Text>
                 </View>

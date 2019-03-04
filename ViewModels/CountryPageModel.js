@@ -60,12 +60,12 @@ export default class CountryPageModel {
         */
     }
 
-    getSelectedCountries() {
+    selectedCountries() {
         // console.log('selectedCountries');
         if (this.countries) {
             const selectedCountries = this.countries.filter(country => country.isSelected);
-            const selectedCountryCodes = selectedCountries.filter(selectedCountry => selectedCountry.key);
-
+            const selectedCountryCodes = selectedCountries.map(country => country.key);
+            // console.log(JSON.stringify(selectedCountryCodes));
             return selectedCountries.length > 0 ? selectedCountryCodes : null;
         }
         return null;

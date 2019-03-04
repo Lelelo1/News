@@ -23,20 +23,22 @@ import CountryPageModel, { reducer } from './ViewModels/CountryPageModel';
 import SearchPageModel from './ViewModels/SearchPageModel';
 import LanguagePageModel from './ViewModels/LanguagePageModel';
 
-
+/*
 const tabs = createBottomTabNavigator({
   Search: { screen: SearchPage },
   Sources: { screen: SourcesPage }
 });
+*/
 
 const Navigation = createStackNavigator(
   {
-    tabs,
+    Search: { screen: SearchPage },
+    Sources: { screen: SourcesPage },
     Country: { screen: CountryPage },
     Language: { screen: LanguagePage }
   },
   {
-    initialRouteKey: 'tabs'
+    initialRouteKey: 'Search'
   }
 );
 
