@@ -22,8 +22,7 @@ class CategoryArea extends Component {
             return null;
         }
         return (
-            
-            
+                // unable to select category when source is selected
                 <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                     <Text style={{ fontSize: moderateScale(11) }} >Select a category</Text>
                     <RNPickerSelect

@@ -27,17 +27,38 @@ export default class SourcesPageModel {
         console.log('with country: ' + country);
         const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
         const promise = newsAPI.v2.sources({ category, language, country });
-        promise.then((res) => { this.sources = res.sources.map(source => { const s = source; s.isSelected = false; return s; }); });   
+        promise.then((res) => {
+             const previousSelectedSources = this.previousSelectedSources();
+             console.log('previousSources: ' + JSON.stringify(previousSelectedSources));
+             let newSources = res.sources.map(source => { const s = source; s.isSelected = false; return s; });
+                if (previousSelectedSources) {
+                    newSources = newSources.filter(source => !this.existsIn(source, previousSelectedSources));
+                    console.log('filteredNewSources: ' + JSON.stringify(newSources));
+                    console.log('join: ' + JSON.stringify(previousSelectedSources));
+                    newSources = newSources.concat(previousSelectedSources);
+                }
+            console.log('sources: ' + JSON.stringify(newSources));
+            this.sources = newSources;
+            console.log('Sources: ' + JSON.stringify(this.sources));
+        });   
+    }
+    previousSelectedSources() { // can't uses selectedSources() as it returns only the id
+        if (this.sources) {
+            return this.sources.filter(source => source.isSelected);
+        }
+        return null;
+    }
+    existsIn(source, previousSources) {
+        return previousSources.find(s => source.id === s.id);
     }
     setSelected(id) {
         console.log('id: ' + id);
         const setSource = this.sources.find(source => id === source.id);
-        console.log(setSource);
         // console.log('set: ' + setSource.id + ' ' + setSource.isSelected);
         setSource.isSelected = !setSource.isSelected;
     }
     selectedSources() {
-        if (this.sources) {
+        if (this.sources) { 
             const selectedSources = this.sources.filter(source => source.isSelected);
             const selectedSourcesNames = selectedSources.map(source => source.id);
             return selectedSourcesNames.length > 0 ? selectedSourcesNames : null;

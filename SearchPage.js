@@ -12,9 +12,16 @@ import LevelSlider from './LevelSlider/LevelSlider'
 import { moderateScale, scale } from 'react-native-size-matters';
 import SearchPageModel from './ViewModels/SearchPageModel';
 
+let self;
 class SearchPage extends Component {
   static navigationOptions = ({ navigation }) => ({
-    title: 'Search',
+    headerTitle: (
+      <Text 
+       style={{ fontSize: 18, fontWeight: '500' }}
+       onPress={() => { self.scrollView.scrollTo(0, 0, true); }}
+      >Search
+      </Text> // check how it look on android compare to other screen titles
+    ),
     headerRight: (
       <TouchableOpacity
        style={{ paddingRight: scale(12) }}
@@ -33,6 +40,7 @@ class SearchPage extends Component {
       iconName: 'new',
       searchAreaHeight: moderateScale(210)
     };
+    self = this;
   }
 
   getSource(urlToImage) {

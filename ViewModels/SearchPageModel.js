@@ -105,11 +105,11 @@ class SearchPageModel {
         const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
         let promise;
         const sources = SourcesPageModel.getInstance().selectedSources();
-        console.log('source: ' + sources);
+        console.log('sources: ' + sources);
         if (this.searchType === 'headlines') {
             console.log('headlines search');
             if (sources) {
-                promise = newsAPI.v2.topHeadlines({ q: this.query, sources });
+                promise = newsAPI.v2.topHeadlines({ q: this.query, sources: sources.toString() });
             } else {
                 const country = CountryPageModel.getInstance().selectedCountries();
                 const category = this.selectedCategory;
@@ -118,8 +118,7 @@ class SearchPageModel {
         } else {
             const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
 
-            console.log(sources);
-            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources, pageSize: 100 });
+            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources: sources.toString(), pageSize: 100 });
             console.log(promise);
         }
         promise.then(res => {this.articles = res.articles; console.log('articles: ' + JSON.stringify(this.articles)); this.isSearching = false; });
