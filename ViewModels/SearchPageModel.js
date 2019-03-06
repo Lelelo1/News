@@ -1,6 +1,5 @@
 import { decorate, observable, computed } from 'mobx';
 import CountryPageModel from './CountryPageModel';
-import SourcesPageModel from './SourcesPageModel';
 import NewsAPI from 'newsapi';
 import { inject, observer } from 'mobx-react';
 // import { toJS } from 'mobx';
@@ -19,10 +18,13 @@ class SearchPageModel {
 
     chosenSources = [];
     getCountry() {
-        const c = CountryPageModel.getInstance().countries.find(country => country.isSelected);
-        if (c !== undefined) {
-            return c.name;
+        if (CountryPageModel.getInstance().countries) {
+            const c = CountryPageModel.getInstance().countries.find(country => country.isSelected);
+            if (c !== undefined) {
+                return c.name;
+            }
         }
+        
         return '';
     }
     searchType = 'headlines'; // don't use replace when setting
@@ -78,7 +80,8 @@ class SearchPageModel {
         const countries = CountryPageModel.getInstance().selectedCountries();  // returns empty array if filter did not have any matches
         // console.log('countries ' + countries);
         const category = this.selectedCategory; // defaults to null
-        const sources = SourcesPageModel.getInstance().selectedSources();
+        const sources = '';
+        // SourcesPageModel.getInstance().selectedSources();
         const q = this.getQuery();
         // if (!category) {}
         let canSearchHeadlines = false;
@@ -101,7 +104,8 @@ class SearchPageModel {
         this.isSearching = true;
         const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
         let promise;
-        const sources = SourcesPageModel.getInstance().selectedSources(); // maybe format
+        // const sources = SourcesPageModel.getInstance().selectedSources(); // maybe format
+        const sources = '';
         if (this.searchType === 'headlines') {
             console.log('headlines search');
             if (sources) {

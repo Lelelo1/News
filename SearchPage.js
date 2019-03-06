@@ -3,7 +3,6 @@ import { AppRegistry, ScrollView, FlatList, StyleSheet, Text, View, TextInput, T
 import { ListItem } from 'react-native-elements';
 import MultiSwitch from 'react-native-multi-switch';
 import { App } from './App';
-import SearchPageModel from './ViewModels/SearchPageModel';
 import SearchArea from './Search/SearchArea';
 import { withNavigation } from 'react-navigation';
 import { inject, observer } from 'mobx-react';
@@ -11,7 +10,7 @@ import RNPickerSelect from 'react-native-picker-select';
 import Icon from 'react-native-vector-icons/Entypo'
 import LevelSlider from './LevelSlider/LevelSlider'
 import { moderateScale, scale } from 'react-native-size-matters';
-
+import SearchPageModel from './ViewModels/SearchPageModel';
 
 class SearchPage extends Component {
   static navigationOptions = ({ navigation }) => ({

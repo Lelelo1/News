@@ -1,21 +1,19 @@
-import SearchPageModel from "./SearchPageModel";
+import { decorate, observable } from 'mobx';
 
 export default class SourcesPageModel {
     
     static instance = null;
+
     static getInstance() {
-        if (this.instance == null) {
+        if (this.instance === null) {
             this.instance = new SourcesPageModel();
         }
         return this.instance;
     }
-    sources;
-    selectedSources() {
-        if (this.sources) {
-            const selectedSources = this.sources.filter(source => source.isSelected === true);
-            return selectedSources > 0 ? selectedSources : null;
-        }
-        return null;
-    }
     
+    text = 't';
 }
+
+decorate(SourcesPageModel, {
+    text: observable
+});

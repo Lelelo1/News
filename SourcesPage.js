@@ -1,16 +1,24 @@
-import React, { Component } from 'React';
-import { View, Text } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Button } from 'react-native';
+import { inject, observer } from 'mobx-react';
 
-export default class SourcesPage extends Component {
-    static navigationOptions = {
+class SourcesPage extends Component {
+    static navigationOptions= {
         title: 'Sources'
     }
     render() {
         return (
-            <View style={{ flex: 1, backgroundColor: '#FFF' }}>
-                <Text>SourcesPage</Text>
-                
+            <View>
+                <Text>Sources page</Text>
+                <Button
+                 title={this.props.sourcesPageModel.text} 
+                 onPress={() => {
+                    this.props.sourcesPageModel.text = 'whooo';
+                 }}
+                />
             </View>
         );
     }
 }
+
+export default inject('sourcesPageModel')(observer(SourcesPage));

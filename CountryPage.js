@@ -13,7 +13,7 @@ import { SearchBar } from 'react-native-elements';
 class CountryPage extends Component {
     
     static navigationOptions = {
-        title: 'Country',
+        title: 'Country'
     }
 
     componentDidMount() {
@@ -26,6 +26,12 @@ class CountryPage extends Component {
        // this.props.geo.getCountries().then(countries => this.setState({ data: countries }));
         this.loadAllCountries();
     }
+    getSource(flag) {
+        if (flag) {
+            return { source: { uri: flag } };
+        }
+        return null;
+    }
     loadAllCountries() {
        // replace only works for strings which observable seem to be https://stackoverflow.com/questions/39543194/mobx-replacing-item-in-observable-array
        CountryPageModel.getInstance().getCountries().then(countries => { CountryPageModel.getInstance().countries = countries; }).then(() => { CountryPageModel.getInstance().query = ''; });
@@ -37,12 +43,24 @@ class CountryPage extends Component {
                  searchEnable={true}
                  query={this.props.countryPageModel.query}
                  data={this.props.countryPageModel.getFilteredCountries()}
+                 render={({ item }) =>
+                 <Observer>
+                     {() => 
+                     <CheckListItem
+                     title={item.name}
+                     leftAvatar={this.getSource(item.flag)}
+                     isSelected={item.isSelected}
+                     onSelect={() => { this.props.countryPageModel.setSelected(item.key); }}
+                     />
+                     }
+                 </Observer>}
                  onSelect={CountryPageModel.getInstance()}
                  bindingContext={CountryPageModel.getInstance()}
                 />
             </View>
         );
     }
+    
 }
 /*
 function mapStateToProps(state) {

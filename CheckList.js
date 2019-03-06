@@ -12,10 +12,6 @@ import { SearchBar } from 'react-native-elements';
  */
 class CheckList extends Component {
     
-    static navigationOptions = {
-        title: 'Country',
-    }
-
     static getDerivedStateFromProps(props, state) {
         console.log('props changed');
         return { refresh: !state.refresh };
@@ -48,18 +44,7 @@ class CheckList extends Component {
                     />
                     <FlatList
                         data={this.props.data}
-                        renderItem={({ item }) =>
-                            <Observer>
-                                {() => 
-                                <CheckListItem
-                                title={item.name}
-                                leftAvatar={this.getSource(item.flag)}
-                                isSelected={item.isSelected}
-                                onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
-                                />
-                                }
-                            </Observer>
-                            }
+                        renderItem={this.props.render}
                         extraData={this.state.refresh}
                     />
                 </View>
@@ -67,29 +52,12 @@ class CheckList extends Component {
         } else {
             return (
                 <FlatList
-                        data={this.props.data}
-                        renderItem={({ item }) =>
-                            <Observer>
-                                {() => 
-                                    <CheckListItem
-                                    title={item.name}
-                                    leftAvatar={this.getSource(item.flag)}
-                                    isSelected={item.isSelected}
-                                    onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
-                                    />
-                                }
-                            </Observer>
-                    }
+                    data={this.props.data}
+                    renderItem={this.props.render}
                     extraData={this.state.refresh}
-                    />
+                />
             );
         }
-    }
-    getSource(flag) {
-        if (flag) {
-            return { source: { uri: flag } };
-        }
-        return null;
     }
 }
 /*
