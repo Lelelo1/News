@@ -28,9 +28,14 @@ class ArticlePage extends Component {
         const article = SearchPageModel.getInstance().selectedArticle;
         return (
             <ScrollView>
-                 {this.renderImage(article.urlToImage)}
-                <Text style={{ fontSize: moderateScale(25) }}>{article.title}</Text>
-                <Text style={{ fontSize: moderateScale(12) }}>{article.content}</Text>
+                 <View style={{ flex: 1 }}>
+                    {this.renderImage(article.urlToImage)}
+                    <Text style={{ fontSize: moderateScale(25) }}>{article.title}</Text>
+                    <Text style={{ fontSize: moderateScale(12) }}>{article.content}</Text>
+                    <View style={{ flex: 1, alignSelf: 'flex-end', alignContent: 'flex-end', alignItems: 'flex-end', justifyContent: 'flex-end' }}>
+                        <Text style={{ fontSize: moderateScale(10) }} >Source: {article.source.name}</Text>
+                    </View>
+                </View>
             </ScrollView>
         );
     }

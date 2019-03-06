@@ -31,6 +31,12 @@ class CheckList extends Component {
        // this.setState({ data: SearchParameters.geo.getCountries() });
        // this.props.geo.getCountries().then(countries => this.setState({ data: countries }));
     }
+    getSource(flag) {
+        if (flag) {
+            return { source: { uri: flag } };
+        }
+        return null;
+    }
     render() {
         // console.log('render: '+ JSON.stringify(this.props.countryPageModel.countries));
         console.log('render data: ' + this.props.data);
@@ -44,7 +50,17 @@ class CheckList extends Component {
                     />
                     <FlatList
                         data={this.props.data}
-                        renderItem={this.props.render}
+                        renderItem={({ item }) =>
+                        <Observer>
+                            {() => 
+                            <CheckListItem
+                            title={item.name}
+                            leftAvatar={this.getSource(item.flag)}
+                            isSelected={item.isSelected}
+                            onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
+                            />
+                            }
+                        </Observer>}
                         extraData={this.state.refresh}
                     />
                 </View>
@@ -53,7 +69,17 @@ class CheckList extends Component {
             return (
                 <FlatList
                     data={this.props.data}
-                    renderItem={this.props.render}
+                    renderItem={({ item }) =>
+                    <Observer>
+                        {() => 
+                        <CheckListItem
+                        title={item.name}
+                        leftAvatar={this.getSource(item.flag)}
+                        isSelected={item.isSelected}
+                        onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
+                        />
+                        }
+                    </Observer>}
                     extraData={this.state.refresh}
                 />
             );

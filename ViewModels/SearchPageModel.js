@@ -1,9 +1,10 @@
-import { decorate, observable, computed } from 'mobx';
+import { decorate, observable, computed, toJS } from 'mobx';
 import CountryPageModel from './CountryPageModel';
 import NewsAPI from 'newsapi';
 import { inject, observer } from 'mobx-react';
 // import { toJS } from 'mobx';
 import LanguagePageModel from './LanguagePageModel';
+import SourcesPageModel from './SourcesPageModel';
 
 class SearchPageModel {
     
@@ -80,8 +81,7 @@ class SearchPageModel {
         const countries = CountryPageModel.getInstance().selectedCountries();  // returns empty array if filter did not have any matches
         // console.log('countries ' + countries);
         const category = this.selectedCategory; // defaults to null
-        const sources = '';
-        // SourcesPageModel.getInstance().selectedSources();
+        const sources = SourcesPageModel.getInstance().selectedSources();
         const q = this.getQuery();
         // if (!category) {}
         let canSearchHeadlines = false;
@@ -104,8 +104,8 @@ class SearchPageModel {
         this.isSearching = true;
         const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
         let promise;
-        // const sources = SourcesPageModel.getInstance().selectedSources(); // maybe format
-        const sources = '';
+        const sources = SourcesPageModel.getInstance().selectedSources();
+        console.log('source: ' + sources);
         if (this.searchType === 'headlines') {
             console.log('headlines search');
             if (sources) {
@@ -113,16 +113,16 @@ class SearchPageModel {
             } else {
                 const country = CountryPageModel.getInstance().selectedCountries();
                 const category = this.selectedCategory;
-                promise = newsAPI.v2.topHeadlines({ q: this.query, country, category });
+                promise = newsAPI.v2.topHeadlines({ q: this.query, country, category, pageSize: 100 });
             }
         } else {
             const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
 
             console.log(sources);
-            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources });
+            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources, pageSize: 100 });
             console.log(promise);
         }
-        promise.then(res => { console.log(res); this.articles = res.articles; console.log('articles: ' + this.articles); this.isSearching = false; });
+        promise.then(res => {this.articles = res.articles; console.log('articles: ' + JSON.stringify(this.articles)); this.isSearching = false; });
     }
     test = 'no';
     level = 0;

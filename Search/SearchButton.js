@@ -28,7 +28,7 @@ class SearchButton extends Component {
         const canSearch = this.props.searchPageModel.canSearch();
         const searchType = this.props.searchPageModel.searchType;
         if (canSearch && this.canSearch !== canSearch && this.searchType === searchType) {
-            this.text.jello(1000, 10);
+            this.text.jello(1000);
         }
         this.canSearch = canSearch;
         this.searchType = searchType;
