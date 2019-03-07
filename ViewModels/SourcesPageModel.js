@@ -24,7 +24,9 @@ export default class SourcesPageModel {
         const category = search.selectedCategory;
         const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
         const country = CountryPageModel.getInstance().selectedCountries();
+        console.log('with category: ' + category);
         console.log('with country: ' + country);
+        console.log('with langauge: ' + language);
         const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
         const promise = newsAPI.v2.sources({ category, language, country });
         promise.then((res) => {

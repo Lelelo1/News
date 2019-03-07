@@ -23,6 +23,7 @@ export default class CountryPageModel {
     countries;
     getCountries() {
         if (this.countries) {
+            console.log('countries was already initialized');
             return Promise.resolve(this.countries);
         }
         return Promise.all(

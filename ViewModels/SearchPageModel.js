@@ -17,7 +17,6 @@ class SearchPageModel {
         return this.instance;
     }
 
-    chosenSources = [];
     getCountry() {
         if (CountryPageModel.getInstance().countries) {
             const c = CountryPageModel.getInstance().countries.find(country => country.isSelected);
@@ -117,8 +116,11 @@ class SearchPageModel {
             }
         } else {
             const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
-
-            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources: sources.toString(), pageSize: 100 });
+            let sourcesString = '';
+            if (sources) {
+                sourcesString = sources.toString();
+            }
+            promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources: sourcesString, pageSize: 100 });
             console.log(promise);
         }
         promise.then(res => {this.articles = res.articles; console.log('articles: ' + JSON.stringify(this.articles)); this.isSearching = false; });
