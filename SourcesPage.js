@@ -39,7 +39,7 @@ class SourcesPage extends Component {
                             <CheckListItem
                             title={item.name}
                             isSelected={item.isSelected}
-                            onSelect={() => { this.props.sourcesPageModel.setSelected(item.id); }}
+                            onSelect={() => { this.props.sourcesPageModel.setSelected(item.id); console.log('onSelect: ' + item.name)}}
                             />
                         }
                     </Observer>

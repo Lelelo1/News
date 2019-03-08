@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View, Dimensions } from 'react-native';
 import SearchRow from './SearchRow';
 import ButtonRow from './ButtonRow';
+
 import { verticalScale, moderateScale } from 'react-native-size-matters';
 import CategoryArea from './CategoryArea';
 

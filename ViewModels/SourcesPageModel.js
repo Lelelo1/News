@@ -32,7 +32,7 @@ export default class SourcesPageModel {
         promise.then((res) => {
              const previousSelectedSources = this.previousSelectedSources();
              console.log('previousSources: ' + JSON.stringify(previousSelectedSources));
-             let newSources = res.sources.map(source => { const s = source; s.isSelected = false; return s; });
+             let newSources = res.sources.map(source => { const s = source; s.isSelected = false; s.key = s.id; return s; });
                 if (previousSelectedSources) {
                     newSources = newSources.filter(source => !this.existsIn(source, previousSelectedSources));
                     console.log('filteredNewSources: ' + JSON.stringify(newSources));

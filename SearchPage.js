@@ -111,7 +111,6 @@ class SearchPage extends Component {
         <ScrollView ref={(ref) => { this.scrollView = ref; }} style={{ backgroundColor: '#fff' }}>
           
           <SearchArea navigation={this.props.navigation} height={this.state.searchAreaHeight} />
-          <TextInput style={{ height: 40 }} onSubmitEditing={(event) => { this.setState({ outputText: this.state.outputText + event.nativeEvent.text }); }} />
           <LevelSlider levels={4} width={180} circleSize={17} bindingContext={this.props.searchPageModel} />  
           <ActivityIndicator animating={this.props.searchPageModel.isSearching} />
           <FlatList

@@ -29,6 +29,7 @@ class CheckListItem extends Component {
                 leftIcon={this.state.icon}
                 onPress={(event) => {
                     this.props.onSelect();
+                    console.log('pressed: ' + this.props.title);
                 }}
                 containerStyle={{ backgroundColor: this.state.color }}
             />

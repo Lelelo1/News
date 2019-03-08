@@ -34,7 +34,6 @@ class CategoryArea extends Component {
                      textAlign: 'center',
                      height: moderateScale(31),
                      width: moderateScale(125),
-                     alignSelf: 'center',
                      borderRadius: moderateScale(45),
                      fontSize: moderateScale(13),
                     }}

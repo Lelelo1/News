@@ -71,7 +71,8 @@ async savePreferences() {
   const setQuery = search.query ? search.query : '';
   console.log('setQuery: ' + setQuery);
   await AsyncStorage.setItem('query', setQuery);
-  await AsyncStorage.setItem('category', search.selectedCategory);
+  const setCategory = search.selectedCategory ? search.selectedCategory : '';
+  await AsyncStorage.setItem('category', setCategory);
   const countryPageModel = CountryPageModel.getInstance();
   // only stringfy if properties contains value or error is thrown
   const setCountry = countryPageModel.countries ? JSON.stringify(countryPageModel.countries) : '';
