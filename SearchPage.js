@@ -18,7 +18,7 @@ class SearchPage extends Component {
     headerTitle: (
       <Text 
        style={{ fontSize: 18, fontWeight: '500' }}
-       onPress={() => { self.scrollView.scrollTo(0, 0, true); }}
+       onPress={() => { self.flatList.scrollToOffset({ animated: true, offset: 0 }); }}
       >Search
       </Text> // check how it look on android compare to other screen titles
     ),
@@ -38,7 +38,7 @@ class SearchPage extends Component {
     this.state = {
       outputText: 'You are welcome to this react native page, ',
       iconName: 'new',
-      searchAreaHeight: moderateScale(210)
+      searchAreaHeight: moderateScale(210),
     };
     self = this;
   }
@@ -49,7 +49,6 @@ class SearchPage extends Component {
     }
     return null;
   }
-
   handleSearchType(event) {
     if (this.state.iconName === 'infinity') {
       this.setState({ iconName: 'new' });
@@ -76,6 +75,7 @@ class SearchPage extends Component {
           />
         );
       }
+      // this.selectArticle(item);
       case 1 : {
         return (
           <ListItem
@@ -100,42 +100,71 @@ class SearchPage extends Component {
         );
       }
       default : {
-        return null;
+        // this.scrollView.scrollTo(this.state.searchAreaHeight, true);
+        return (<ListItem 
+        leftAvatar={this.getSource(item.urlToImage)}
+        title={<Text style={{ fontSize: 23, fontWeight: 'bold' }}>{item.title}</Text>}
+        subtitle={<Text style={{ fontSize: 12 }}>{item.description}</Text>}
+        subtitleProps={{ fontSize: 10, color: 'grey' }}
+        rightIcon={{ name: 'chevron-right', size: 18 }}
+        onPress={() => { this.selectArticle(item); }}
+        />);
       }
     }
   }
-  
+
+  componentDidUpdate() {
+    const articles = this.props.searchPageModel.articles;
+    if (articles) {
+      if (articles.length > 0) {
+        this.flatList.scrollToOffset({ animated: true, offset: this.state.searchAreaHeight });
+      }
+    }
+  }
+  renderSearchArea() {
+    return (
+      <View>
+        <SearchArea navigation={this.props.navigation} height={this.state.searchAreaHeight} />
+        <LevelSlider levels={4} width={180} circleSize={17} bindingContext={this.props.searchPageModel} />  
+        <ActivityIndicator animating={this.props.searchPageModel.isSearching} />
+      </View>
+    );
+  }
   render() {
     return (
       <SafeAreaView style={{ backgroundColor: '#fff'}}>
-        <ScrollView ref={(ref) => { this.scrollView = ref; }} style={{ backgroundColor: '#fff' }}>
-          
-          <SearchArea navigation={this.props.navigation} height={this.state.searchAreaHeight} />
-          <LevelSlider levels={4} width={180} circleSize={17} bindingContext={this.props.searchPageModel} />  
-          <ActivityIndicator animating={this.props.searchPageModel.isSearching} />
+        
           <FlatList
             ref={(ref) => { this.flatList = ref; }}
+            ListHeaderComponent={this.renderSearchArea()}
             data={this.props.searchPageModel.articles}
             renderItem={({ item, index }) => {
-              if (index === this.props.searchPageModel.articles.length - 1) {
-                this.scrollView.scrollTo(this.state.searchAreaHeight, true);
-              }
               return this.listItem(item); 
             }}
+            onEndReached={() => {
+              console.log('onEndReached');
+            }}
+            onEndReachedThreshold={0.1}
             
-            style={{ backgroundColor: '#c7d6e0' }}
-            
+            /*
+            onEndReached={this.onEndReached.bind(this)}
+            onEndReachedThreshold={0.5}
+            onMomentumScrollBegin={() => { this.onEndReachedCalledDuringMomentum = false; }}
+            */
+            /*
+            onEndReached={({ distanceFromEnd }) => {
+              this.onEndReached(distanceFromEnd);
+            }}
+            onEndReachedThreshold={0}
+            onMomentumScrollBegin={() => { this.flatList.onEndReachedCalledDuringMomentum = false; }}
+            */
+           
           />
       
-      </ScrollView>
       </SafeAreaView>
     );
   }
-
 }
-
-
-
 const styles = StyleSheet.create({
   item: {
     padding: 10,

@@ -15,7 +15,8 @@ class CheckListItem extends Component {
         super(props);
         this.state = {
             color: this.props.isSelected ? '#dddddd' : '#fff',
-            icon: this.props.isSelected ? { name: 'check', size: 33 } : null
+            icon: this.props.isSelected ? { name: 'check', size: 33 } : null,
+            name: this.props.title
         };
     }    
 
@@ -29,7 +30,7 @@ class CheckListItem extends Component {
                 leftIcon={this.state.icon}
                 onPress={(event) => {
                     this.props.onSelect();
-                    console.log('pressed: ' + this.props.title);
+                    console.log('pressed: ' + this.state.name);
                 }}
                 containerStyle={{ backgroundColor: this.state.color }}
             />

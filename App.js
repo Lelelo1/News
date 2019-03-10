@@ -54,7 +54,16 @@ export default class App extends Component<Props> {
   }
 componentDidMount() {
   AppState.addEventListener('change', this.handleAppStateExit);
-  this.loadPreferences();
+  this.loadPreferences().then(keys => {
+    console.log('keys: ' + keys);
+    if (keys.length === 0) {
+      console.log('App was started for the first time');
+      // preform set up
+      // create firstTimeStart viewModel triggering tooltips and
+    } else {
+      console.log('App was started and has started before');
+    }
+  });
 }
 componentWillUnmount() {
   AppState.removeEventListener('change', this.handleAppStateExit);
@@ -87,6 +96,9 @@ async savePreferences() {
   JSON.stringify(sourcesPageModel.previousSelectedSources()) : '';
   console.log('setSource: ' + setSource);
   await AsyncStorage.setItem('sources', setSource);
+
+  const keys = await AsyncStorage.getAllKeys(); // *** REMOVE WHEN BUILD IPA APK. made for simulating a first time start only
+  await AsyncStorage.multiRemove(keys);
 }
 async loadPreferences() {
   // console.log('loading prefrences');
@@ -114,10 +126,12 @@ async loadPreferences() {
   if (sources) {
     sourcesPageModel.sources = JSON.parse(sources);
   }
+  return await AsyncStorage.getAllKeys();
 }
   render() {
     return (
       <Provider
+       // ref={(ref) => { this.provider = ref; }}
        countryPageModel={CountryPageModel.getInstance()}
        searchPageModel={SearchPageModel.getInstance()}
        languagePageModel={LanguagePageModel.getInstance()}

@@ -3,6 +3,7 @@ import { View, Text, Button, FlatList } from 'react-native';
 import { inject, observer, Observer } from 'mobx-react';
 import SourcesPageModel from './ViewModels/SourcesPageModel';
 import CheckListItem from './CheckListItem';
+import CheckList from './CheckList';
 
 class SourcesPage extends Component {
     static navigationOptions= {
@@ -30,22 +31,9 @@ class SourcesPage extends Component {
         console.log('render sourcePage');
         return (
             <View style={{ flex: 1 }}>
-                <FlatList 
+                <CheckList
                  data={this.props.sourcesPageModel.sources}
-                 renderItem={({ item }) => {
-                     return ( // important Observer for changes to take effect in CheckListItem
-                     <Observer> 
-                        {() =>
-                            <CheckListItem
-                            title={item.name}
-                            isSelected={item.isSelected}
-                            onSelect={() => { this.props.sourcesPageModel.setSelected(item.id); console.log('onSelect: ' + item.name)}}
-                            />
-                        }
-                    </Observer>
-                     );
-                 }}
-                 extraData={this.state.refresh}
+                 bindingContext={SourcesPageModel.getInstance()}
                 />
             </View>
         );

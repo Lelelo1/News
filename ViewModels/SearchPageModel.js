@@ -105,6 +105,7 @@ class SearchPageModel {
         let promise;
         const sources = SourcesPageModel.getInstance().selectedSources();
         console.log('sources: ' + sources);
+        this.page = 1;
         if (this.searchType === 'headlines') {
             console.log('headlines search');
             if (sources) {
@@ -125,7 +126,24 @@ class SearchPageModel {
         }
         promise.then(res => {this.articles = res.articles; console.log('articles: ' + JSON.stringify(this.articles)); this.isSearching = false; });
     }
-    test = 'no';
+    /*
+    page;
+    portionOfArticles() {
+        const articlesPerPage = 12;
+        if (this.articles) {
+            console.log('t:' + this.articles);
+            console.log('page: ' + this.page);
+            let toIndex = articlesPerPage * this.page;
+            if (toIndex >= this.articles.length) {
+                toIndex = this.articles.length - 1;
+            }
+            console.log('from 0 to: ' + toIndex);
+            const slicedArticles = this.articles.slice(0, toIndex);
+            return this.articles.slice(0, toIndex);
+        }
+        return null;
+    }
+    */ // onEndReached has a bug fired twice flatlist cant use it to increment page
     level = 0;
     setLevel(level) {
         if (level !== this.level) {

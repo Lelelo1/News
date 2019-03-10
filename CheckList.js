@@ -19,7 +19,10 @@ class CheckList extends Component {
     constructor() {
         super();
         this.state = {
-            refresh: false
+            refresh: false,
+            data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13,
+                 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31,
+                32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47]
         };
     }
     componentDidMount() {
@@ -50,8 +53,9 @@ class CheckList extends Component {
                     />
                     <FlatList
                         data={this.props.data}
-                        renderItem={({ item }) =>
-                        <Observer>
+                        renderItem={({ item, index }) => {    
+                        
+                        return (<Observer>
                             {() => 
                             <CheckListItem
                             title={item.name}
@@ -60,7 +64,8 @@ class CheckList extends Component {
                             onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
                             />
                             }
-                        </Observer>}
+                        </Observer>);
+                        }}
                         extraData={this.state.refresh}
                     />
                 </View>
@@ -69,23 +74,26 @@ class CheckList extends Component {
             return (
                 <FlatList
                     data={this.props.data}
-                    renderItem={({ item }) =>
-                    <Observer>
-                        {() => 
-                        <CheckListItem
-                        title={item.name}
-                        leftAvatar={this.getSource(item.flag)}
-                        isSelected={item.isSelected}
-                        onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
-                        />
-                        }
-                    </Observer>}
+                    renderItem={({ item, index }) => {
+                        
+                        return (<Observer>
+                            {() => 
+                            <CheckListItem
+                            title={item.name}
+                            leftAvatar={this.getSource(item.flag)}
+                            isSelected={item.isSelected}
+                            onSelect={() => { this.props.bindingContext.setSelected(item.key); }}
+                            />
+                            }
+                        </Observer>);
+                    }}
                     extraData={this.state.refresh}
                 />
             );
         }
     }
 }
+
 /*
 function mapStateToProps(state) {
     return { store: state.geo };

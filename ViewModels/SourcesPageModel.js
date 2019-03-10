@@ -32,13 +32,19 @@ export default class SourcesPageModel {
         promise.then((res) => {
              const previousSelectedSources = this.previousSelectedSources();
              console.log('previousSources: ' + JSON.stringify(previousSelectedSources));
-             let newSources = res.sources.map(source => { const s = source; s.isSelected = false; s.key = s.id; return s; });
-                if (previousSelectedSources) {
+             
+             let newSources = res.sources.map(source => { return { key: source.id, name: source.name, isSelected: false }; }); //<-- test here
+                                                        // source.isSelected = false; source.key = source.id; return source;
+                                                        // const s = source; s.isSelected = false; s.key = s.id; return s;
+             /*
+             if (previousSelectedSources) {
                     newSources = newSources.filter(source => !this.existsIn(source, previousSelectedSources));
                     console.log('filteredNewSources: ' + JSON.stringify(newSources));
                     console.log('join: ' + JSON.stringify(previousSelectedSources));
                     newSources = newSources.concat(previousSelectedSources);
                 }
+            */
+             newSources = newSources.slice(0, 16); // 14 -> 15
             console.log('sources: ' + JSON.stringify(newSources));
             this.sources = newSources;
             console.log('Sources: ' + JSON.stringify(this.sources));
@@ -53,10 +59,10 @@ export default class SourcesPageModel {
     existsIn(source, previousSources) {
         return previousSources.find(s => source.id === s.id);
     }
-    setSelected(id) {
-        console.log('id: ' + id);
-        const setSource = this.sources.find(source => id === source.id);
-        // console.log('set: ' + setSource.id + ' ' + setSource.isSelected);
+    setSelected(key) {
+        const setSource = this.sources.find(source => key === source.key);
+        console.log('selecting ' + JSON.stringify(setSource));
+        // console.log('set: ' + setSource.id + ' ' + setSource.isSelected)
         setSource.isSelected = !setSource.isSelected;
     }
     selectedSources() {
