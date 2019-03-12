@@ -27,10 +27,21 @@ export default class LanguagePageModel {
         return this.languages;
     }
     setSelected(key) {
+        const deselectLanguage = this.languages.find(language => language.isSelected && language.key !== key);
+        if (deselectLanguage !== undefined) {
+            deselectLanguage.isSelected = false;
+        }
         const setLanguage = this.languages.find(language => language.key === key);
         setLanguage.isSelected = !setLanguage.isSelected;
     }
     selectedLanguages() {
+        if (this.languages) {
+            const selectedLanguages = this.languages.filter(language => language.isSelected);
+            return selectedLanguages.length > 0 ? selectedLanguages : null;
+        }
+        return null;
+    }
+    selectedLanguageCodes() {
         if (this.languages) {
             const selectedLanguages = this.languages.filter(language => language.isSelected);
             const selectedLanguageCodes = selectedLanguages.map(selectedLanguage => selectedLanguage.key);

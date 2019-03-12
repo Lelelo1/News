@@ -22,8 +22,8 @@ export default class SourcesPageModel {
         console.log('getting sources');
         const search = SearchPageModel.getInstance();
         const category = search.selectedCategory;
-        const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
-        const country = CountryPageModel.getInstance().selectedCountries();
+        const language = LanguagePageModel.getInstance().selectedLanguageCodes(); // limit to one language
+        const country = CountryPageModel.getInstance().selectedCountryCodes();
         console.log('with category: ' + category);
         console.log('with country: ' + country);
         console.log('with langauge: ' + language);
@@ -68,7 +68,7 @@ export default class SourcesPageModel {
     selectedSources() {
         if (this.sources) { 
             const selectedSources = this.sources.filter(source => source.isSelected);
-            const selectedSourcesNames = selectedSources.map(source => source.id);
+            const selectedSourcesNames = selectedSources.map(source => source.key);
             return selectedSourcesNames.length > 0 ? selectedSourcesNames : null;
         }
         return null;

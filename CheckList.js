@@ -73,6 +73,7 @@ class CheckList extends Component {
         } else {
             return (
                 <FlatList
+                    ListHeaderComponent={this.props.listHeaderComponent}
                     data={this.props.data}
                     renderItem={({ item, index }) => {
                         

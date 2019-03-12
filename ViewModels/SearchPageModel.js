@@ -16,17 +16,6 @@ class SearchPageModel {
         }
         return this.instance;
     }
-
-    getCountry() {
-        if (CountryPageModel.getInstance().countries) {
-            const c = CountryPageModel.getInstance().countries.find(country => country.isSelected);
-            if (c !== undefined) {
-                return c.name;
-            }
-        }
-        
-        return '';
-    }
     searchType = 'headlines'; // don't use replace when setting
     query;
     getQuery() {
@@ -77,7 +66,7 @@ class SearchPageModel {
     // when should be empty strings if empty
     canSearch() {
         // headlines
-        const countries = CountryPageModel.getInstance().selectedCountries();  // returns empty array if filter did not have any matches
+        const countries = CountryPageModel.getInstance().selectedCountryCodes();  // returns empty array if filter did not have any matches
         // console.log('countries ' + countries);
         const category = this.selectedCategory; // defaults to null
         const sources = SourcesPageModel.getInstance().selectedSources();
@@ -107,16 +96,17 @@ class SearchPageModel {
         console.log('sources: ' + sources);
         this.page = 1;
         if (this.searchType === 'headlines') {
-            console.log('headlines search');
+            console.log('headlines search: ');
             if (sources) {
+                console.log('sources search: ' + sources.toString());
                 promise = newsAPI.v2.topHeadlines({ q: this.query, sources: sources.toString() });
             } else {
-                const country = CountryPageModel.getInstance().selectedCountries();
+                const country = CountryPageModel.getInstance().selectedCountryCodes();
                 const category = this.selectedCategory;
                 promise = newsAPI.v2.topHeadlines({ q: this.query, country, category, pageSize: 100 });
             }
         } else {
-            const language = LanguagePageModel.getInstance().selectedLanguages(); // limit to one language
+            const language = LanguagePageModel.getInstance().selectedLanguageCodes(); // limit to one language
             let sourcesString = '';
             if (sources) {
                 sourcesString = sources.toString();

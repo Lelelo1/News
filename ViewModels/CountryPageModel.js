@@ -41,7 +41,7 @@ export default class CountryPageModel {
         return this.query ? this.countries.filter(country => country.name.startsWith(this.query)) : this.countries;
     }
     setSelected(key) {
-        const deselectCountry = this.countries.find(country => country.isSelected === true && country.key !== key);
+        const deselectCountry = this.countries.find(country => country.isSelected && country.key !== key);
         if (deselectCountry !== undefined) {
             deselectCountry.isSelected = false;
         }
@@ -60,8 +60,14 @@ export default class CountryPageModel {
         console.log(c); // the original array of countries should have been modified
         */
     }
-
     selectedCountries() {
+        if (this.countries) {
+            const selectedCountries = this.countries.filter(country => country.isSelected);
+            return selectedCountries.length > 0 ? selectedCountries : null;
+        }
+        return null;
+    }
+    selectedCountryCodes() {
         // console.log('selectedCountries');
         if (this.countries) {
             const selectedCountries = this.countries.filter(country => country.isSelected);
