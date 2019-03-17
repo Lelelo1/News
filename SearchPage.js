@@ -38,12 +38,14 @@ class SearchPage extends Component {
             console.log('failed upload: ' + onFailure);
           });
           */
+         /*
          const helloWorld = firebase.functions().httpsCallable('helloWorld');
-          helloWorld({ text: 'messageText' }).then(function(result) {
+          helloWorld({ text: 'messageText' }).then((result) => {
           // Read result of the Cloud Function.
           console.log('result: ' + JSON.stringify(result));
-  // ...
-});
+          });
+          */
+         firebase.firestore().collection('articles').add({ data: 'helloWord' });
        }}
       >
       <Icon name='open-book' size={30} />
