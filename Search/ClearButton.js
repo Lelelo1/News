@@ -42,7 +42,7 @@ class ClearButton extends Component {
              disabled={!this.props.searchPageModel.canSearch()}
              onPress={() => this.clearAllSelectedPreferences()}
             >
-                <Icon name={'clear'} size={moderateScale(17)} color={this.props.searchPageModel.canSearch() ? 'black' : 'transparent'} />
+                <Icon name={'clear'} size={moderateScale(35)} color={this.props.searchPageModel.canSearch() ? 'black' : 'transparent'} />
             </TouchableOpacity>
         );
     }

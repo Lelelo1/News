@@ -11,6 +11,7 @@ import Icon from 'react-native-vector-icons/Entypo'
 import LevelSlider from './LevelSlider/LevelSlider'
 import { moderateScale, scale } from 'react-native-size-matters';
 import SearchPageModel from './ViewModels/SearchPageModel';
+import firebase from 'react-native-firebase';
 
 let self;
 class SearchPage extends Component {
@@ -26,11 +27,27 @@ class SearchPage extends Component {
       <TouchableOpacity
        style={{ paddingRight: scale(12) }}
        onPress={() => {
-          navigation.navigate('Sources');
+          // navigation.navigate('Sources');
+          /*
+          firebase.database().ref().child('articles').push()
+          .set({ messange: 'helloWorld' })
+          .then(() => {
+            console.log('succesfull upload');
+          })
+          .catch((onFailure) => {
+            console.log('failed upload: ' + onFailure);
+          });
+          */
+         const helloWorld = firebase.functions().httpsCallable('helloWorld');
+          helloWorld({ text: 'messageText' }).then(function(result) {
+          // Read result of the Cloud Function.
+          console.log('result: ' + JSON.stringify(result));
+  // ...
+});
        }}
       >
       <Icon name='open-book' size={30} />
-    </TouchableOpacity> // make greyed out and disabled when either country or category is selected
+    </TouchableOpacity> // make greyed out and disabled when either country or category is selected maybe
     ) });
 
   constructor(props) {
@@ -112,7 +129,7 @@ class SearchPage extends Component {
       }
     }
   }
-
+  
   componentDidUpdate() {
     const articles = this.props.searchPageModel.articles;
     if (articles) {

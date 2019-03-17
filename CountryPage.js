@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, View, Text, Switch } from 'react-native';
+import { FlatList, View, Text, Switch, InteractionManager } from 'react-native';
 import { ListItem } from 'react-native-elements';
 import CheckListItem from './CheckListItem';
 import CheckList from './CheckList';
@@ -9,6 +9,7 @@ import { toJS, decorate } from 'mobx';
 import CountryPageModel from './ViewModels/CountryPageModel';
 import { fromPromise } from 'mobx-utils';
 import { SearchBar } from 'react-native-elements';
+
 
 class CountryPage extends Component {
     
@@ -24,7 +25,7 @@ class CountryPage extends Component {
        // SearchParameters.geo.getCountries().then(countries => this.setState({ data: countries }));
        // this.setState({ data: SearchParameters.geo.getCountries() });
        // this.props.geo.getCountries().then(countries => this.setState({ data: countries }));
-        this.loadAllCountries();
+       this.loadAllCountries();
     }
 
     loadAllCountries() {

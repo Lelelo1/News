@@ -1,5 +1,5 @@
 {
-  "name": "market",
+  "name": "News",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -27,9 +27,11 @@
     "react-native-autocomplete-input": "^3.6.0",
     "react-native-easy-grid": "^0.2.0",
     "react-native-elements": "^1.0.0",
+    "react-native-firebase": "^5.2.3",
     "react-native-gesture-handler": "^1.0.15",
     "react-native-multi-switch": "^1.2.0",
     "react-native-picker-select": "^6.0.0",
+    "react-native-rename": "^2.4.1",
     "react-native-responsive-image": "^2.3.1",
     "react-native-responsive-screen": "^1.2.0",
     "react-native-size-matters": "^0.1.6",

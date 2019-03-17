@@ -21,7 +21,7 @@ export default class SourcesPageModel {
     getSources() {
         console.log('getting sources');
         const search = SearchPageModel.getInstance();
-        const category = search.selectedCategory;
+        let category = search.selectedCategory;
         const language = LanguagePageModel.getInstance().selectedLanguageCodes(); // limit to one language
         const country = CountryPageModel.getInstance().selectedCountryCodes();
         console.log('with category: ' + category);
@@ -32,22 +32,21 @@ export default class SourcesPageModel {
         promise.then((res) => {
              const previousSelectedSources = this.previousSelectedSources();
              console.log('previousSources: ' + JSON.stringify(previousSelectedSources));
-             
+             console.log('res: ' + JSON.stringify(res.sources));
              let newSources = res.sources.map(source => { return { key: source.id, name: source.name, isSelected: false }; }); //<-- test here
                                                         // source.isSelected = false; source.key = source.id; return source;
                                                         // const s = source; s.isSelected = false; s.key = s.id; return s;
-             /*
+             
              if (previousSelectedSources) {
                     newSources = newSources.filter(source => !this.existsIn(source, previousSelectedSources));
                     console.log('filteredNewSources: ' + JSON.stringify(newSources));
                     console.log('join: ' + JSON.stringify(previousSelectedSources));
                     newSources = newSources.concat(previousSelectedSources);
                 }
-            */
-             newSources = newSources.slice(0, 16); // 14 -> 15
+            
+            // newSources = newSources.slice(0, 16); // 14 -> 15 <-- why?
             console.log('sources: ' + JSON.stringify(newSources));
             this.sources = newSources;
-            console.log('Sources: ' + JSON.stringify(this.sources));
         });   
     }
     previousSelectedSources() { // can't uses selectedSources() as it returns only the id
@@ -57,7 +56,7 @@ export default class SourcesPageModel {
         return null;
     }
     existsIn(source, previousSources) {
-        return previousSources.find(s => source.id === s.id);
+        return previousSources.find(s => source.key === s.key);
     }
     setSelected(key) {
         const setSource = this.sources.find(source => key === source.key);

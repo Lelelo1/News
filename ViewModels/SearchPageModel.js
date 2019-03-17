@@ -111,6 +111,7 @@ class SearchPageModel {
             if (sources) {
                 sourcesString = sources.toString();
             }
+            console.log('language: ' + language);
             promise = newsAPI.v2.everything({ q: this.getQuery(), language, sources: sourcesString, pageSize: 100 });
             console.log(promise);
         }

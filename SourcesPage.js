@@ -8,6 +8,7 @@ import SearchPageModel from './ViewModels/SearchPageModel';
 import LanguagePageModel from './ViewModels/LanguagePageModel';
 import CountryPageModel from './ViewModels/CountryPageModel';
 import { moderateScale, scale, verticalScale } from 'react-native-size-matters';
+import { Divider } from 'react-native-elements';
 
 class SourcesPage extends Component {
     static navigationOptions= {
@@ -61,8 +62,9 @@ class SourcesPage extends Component {
         }
         const shouldRender = (category || languages || countries);
         return shouldRender ?
-        <View style={{ flex: 1, paddingHorizontal: scale(20), paddingTop: verticalScale(10) }}>
+        <View style={{ flex: 1, paddingHorizontal: scale(20), paddingVertical: verticalScale(10), justifyContent: 'space-between' }}>
             <Text style={{ alignSelf: 'center' }}>{category} {languages} {countries}</Text>
+            <Divider />
         </View>
           :
          null

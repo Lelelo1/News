@@ -97,8 +97,10 @@ async savePreferences() {
   console.log('setSource: ' + setSource);
   await AsyncStorage.setItem('sources', setSource);
 
+  /*
   const keys = await AsyncStorage.getAllKeys(); // *** REMOVE WHEN BUILD IPA APK. made for simulating a first time start only
   await AsyncStorage.multiRemove(keys);
+  */
 }
 async loadPreferences() {
   // console.log('loading prefrences');
