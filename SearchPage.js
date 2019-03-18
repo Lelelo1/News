@@ -27,7 +27,8 @@ class SearchPage extends Component {
       <TouchableOpacity
        style={{ paddingRight: scale(12) }}
        onPress={() => {
-          // navigation.navigate('Sources');
+         console.log('sources');
+          navigation.navigate('Sources');
           /*
           firebase.database().ref().child('articles').push()
           .set({ messange: 'helloWorld' })
@@ -45,7 +46,7 @@ class SearchPage extends Component {
           console.log('result: ' + JSON.stringify(result));
           });
           */
-         firebase.firestore().collection('articles').add({ data: 'helloWord' });
+         // firebase.firestore().collection('articles').add({ data: 'helloWord' });
        }}
       >
       <Icon name='open-book' size={30} />
