@@ -12,6 +12,11 @@ import LevelSlider from './LevelSlider/LevelSlider'
 import { moderateScale, scale } from 'react-native-size-matters';
 import SearchPageModel from './ViewModels/SearchPageModel';
 import firebase from 'react-native-firebase';
+import gql from "graphql-tag";
+import ApolloClient from "apollo-boost";
+const client = new ApolloClient({ // https://48p1r2roz4.sse.codesandbox.io
+  uri: "https://us-central1-news-ba9ea.cloudfunctions.net/newsapi"
+});
 
 let self;
 class SearchPage extends Component {
@@ -27,8 +32,7 @@ class SearchPage extends Component {
       <TouchableOpacity
        style={{ paddingRight: scale(12) }}
        onPress={() => {
-         console.log('sources');
-          navigation.navigate('Sources');
+          // navigation.navigate('Sources');
           /*
           firebase.database().ref().child('articles').push()
           .set({ messange: 'helloWorld' })
@@ -47,6 +51,20 @@ class SearchPage extends Component {
           });
           */
          // firebase.firestore().collection('articles').add({ data: 'helloWord' });
+          client.query({
+            query: gql`
+            {
+              hello
+              name
+            }
+            `
+          })
+          .then((success) => {
+            console.log('succeded: ' + JSON.stringify(success));
+          })
+          .catch((failure) => {
+            console.log('failure: ' + failure);
+          });
        }}
       >
       <Icon name='open-book' size={30} />
