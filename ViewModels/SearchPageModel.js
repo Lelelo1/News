@@ -90,7 +90,11 @@ class SearchPageModel {
     articles;
     getArticles() {
         this.isSearching = true;
-        const newsAPI = new NewsAPI('1e0e39fff2c74b079cfe4ff1b8f3e78d');
+        const key = process.env.NEWSAPI_KEY;
+        if (!key) {
+            throw new Error('you did not have a key for NewsApi installed as a system variable')
+        }
+        const newsAPI = new NewsAPI(key);
         let promise;
         const sources = SourcesPageModel.getInstance().selectedSources();
         console.log('sources: ' + sources);
